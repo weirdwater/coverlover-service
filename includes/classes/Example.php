@@ -8,7 +8,7 @@
  */
 class Example extends DatabaseResource
 {
-    public static $table = "Examples";
+    public static $table = "examples";
     public static $id_column = "exampleId";
 
     private $id,

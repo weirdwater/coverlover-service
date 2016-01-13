@@ -8,7 +8,7 @@
  */
 class Song extends DatabaseResource
 {
-    public static $table = "Songs";
+    public static $table = "songs";
     public static $id_column = "songId";
 
     private $id,
@@ -76,7 +76,7 @@ class Song extends DatabaseResource
             try {
                 $statement = $db->prepare("
                     SELECT *
-                    FROM Examples
+                    FROM examples
                     WHERE songId = ?
                 ");
                 $statement->bindParam(1, $songId, PDO::PARAM_INT);
