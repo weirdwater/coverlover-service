@@ -43,14 +43,15 @@ class Messenger
 
     public function printLog()
     {
-        echo '<pre>';
-        echo '['.strftime('%Y-%m-%d %H:%M:%S',$this->startApplication) .'] APPLICATION START<br/>';
-        foreach ($this->log as $key => $entry)
-        {
-            echo $key .' [+'. ($entry[1] - $this->startApplication) .'] '. $entry[0] .'<br/>';
+        if (ENV === ENV_DEV) {
+            echo '<pre>';
+            echo '[' . strftime('%Y-%m-%d %H:%M:%S', $this->startApplication) . '] APPLICATION START<br/>';
+            foreach ($this->log as $key => $entry) {
+                echo $key . ' [+' . ($entry[1] - $this->startApplication) . '] ' . $entry[0] . '<br/>';
+            }
+            echo '[END APPLICATION] total ms: ' . (time() - $this->startApplication);
+            echo '</pre>';
         }
-        echo '[END APPLICATION] total ms: '. (time() - $this->startApplication);
-        echo '</pre>';
     }
 
 }
