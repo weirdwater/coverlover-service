@@ -10,29 +10,32 @@ class DatabaseResource
 {
     private $id;
 
-    public static $table,
-                  $id_column;
-
-    public static function fromId($id)
+    public static function fromId($id, $table, $id_column)
     {
+
         global $db, $hades;
 
         if (is_numeric($id)) {
             try {
-                $statement = $db->prepare("
+                $statement = $db->prepare('
                     SELECT *
-                    FROM ?
-                    WHERE ? = ?
-                ");
-                $statement->bindParam(1, self::$table, PDO::PARAM_STR);
-                $statement->bindParam(2, self::$id_column, PDO::PARAM_STR);
-                $statement->bindParam(3, $id, PDO::PARAM_INT);
+                    FROM '. $table .'
+                    WHERE '. $id_column .' = ?
+                ');
+                $statement->bindParam(1, $id, PDO::PARAM_INT);
                 $statement->execute();
-                $results = $statement->fetch(PDO::FETCH_BOTH);
+                $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+                return $results;
             }
             catch (Exception $e) {
                 $hades->databaseError($e);
             }
         }
+    }
+
+    public static function fillValues(array $pdoValues)
+    {
+        return new self();
     }
 }

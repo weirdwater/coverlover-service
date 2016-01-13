@@ -4,4 +4,12 @@ $hades = new Messenger();
 
 require 'includes/init.php';
 
-$hades->printLog();
+$song = Song::fromId(1);
+
+//$hades->printLog();
+?>
+<pre>
+    {
+    <?php $song->printDetailedJSON(); ?>
+    }
+</pre>
