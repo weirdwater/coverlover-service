@@ -45,7 +45,7 @@ ini_set('display_errors', 1);
  */
 $pathToIndex = '/IMP_RESTful/';
 define('ROOT_PATH', $_SERVER['DOCUMENT_ROOT'] . $pathToIndex);
-define('BASE_URL',  $pathToIndex);
+define('BASE_URL',  $_SERVER['HTTP_HOST'] . $pathToIndex);
 
 // Handy shortcuts
 define('CLASSES',   ROOT_PATH . 'includes/classes/');
