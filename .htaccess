@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    rewriteEngine on
+
+    RewriteRule ^(\w+)(/|)$ index.php?resource=$1
+    RewriteRule ^(\w+)/(\w+)$ index.php?resource=$1&id=$2
+</IfModule>

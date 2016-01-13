@@ -10,5 +10,9 @@
   {
     "class": "Example",
     "file": "Example.php"
+  },
+  {
+    "class": "Router",
+    "file": "Router.php"
   }
 ]

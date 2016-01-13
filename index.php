@@ -1,15 +1,12 @@
 <?php
 require 'includes/classes/Messenger.php';
 $hades = new Messenger();
-
 require 'includes/init.php';
 
-$song = Song::fromId(1);
+echo '{';
+$router = new Router();
 
 //$hades->printLog();
+
 ?>
-<pre>
-    {
-    <?php $song->printDetailedJSON(); ?>
-    }
-</pre>
+}
