@@ -6,7 +6,7 @@ Accepted content-types: `JSON`, `x-www-form-urlencoded`, and `XML`. This has to 
 
 The Service provides links to resources in the resource objects, it is reccommended you use these links in your client.
 
-**Root:** [http://api.example.com/]()
+**Root:** [http://145.24.222.220/coverlover/]()
 
 ## Songs
 
@@ -41,23 +41,23 @@ http://api.example.com/songs
 
 [
 	{
-		"id": 20145,
+		"id": 1,
 		"slug": "sharp_dressed_man",
 		"title": "Sharp Dressed Man",
 		"artist": "ZZ Top",
 		"links": {
-			"self": "http://api.example.com/songs/sharp_dressed_man",
-			"collection": "http://api.example.com/songs"
+			"self": "http://145.24.222.220/coverlover/songs/sharp_dressed_man",
+			"collection": "http://145.24.222.220/coverlover/songs/"
 		}
 	},
 	{
-		"id": 20146,
+		"id": 2,
 		"slug": "bohemian_like_you",
 		"title": "Bohemian Like You",
 		"artist": "The Dandy Warholes",
 		"links": {
-			"self": "http://api.example.com/songs/sharp_dressed_man",
-			"collection": "http://api.example.com/songs"
+			"self": "http://145.24.222.220/coverlover/songs/sharp_dressed_man",
+			"collection": "http://145.24.222.220/coverlover/songs/"
 		}
 	}
 ]
@@ -70,7 +70,7 @@ http://api.example.com/songs
 
 *simple resource*
 
-**URI:** `/songs/{ song_id || song_slug} `
+**URI:** `/songs/{ song_id || song_slug } `
 
 ### GET
 
@@ -112,6 +112,7 @@ Deletes the resource permanently.
 
 ```json
 https://api.example.com/songs/sharp_dressed_man
+https://api.example.com/songs/1
 
 {
 	"song" : {
