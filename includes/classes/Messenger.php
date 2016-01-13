@@ -30,7 +30,8 @@ class Messenger
         array_push($this->log, [ 'Exception: '.$e->getMessage() .' File: '. $e->getFile() .' Line: '. $e->getLine(), time()]);
 
         if (ENV === ENV_DEV) {
-            //echo $message;
+            $this->printLog();
+            exit;
         }
         else {
             http_response_code(500);
