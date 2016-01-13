@@ -2,5 +2,13 @@
   {
     "class": "DatabaseResource",
     "file": "DatabaseResource.php"
+  },
+  {
+    "class": "Song",
+    "file": "Song.php"
+  },
+  {
+    "class": "Example",
+    "file": "Example.php"
   }
 ]

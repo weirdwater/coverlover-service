@@ -11,7 +11,7 @@ class DatabaseResource
     private $id;
 
     public static $table,
-                  $id_collumn;
+                  $id_column;
 
     public static function fromId($id)
     {
@@ -25,7 +25,7 @@ class DatabaseResource
                     WHERE ? = ?
                 ");
                 $statement->bindParam(1, self::$table, PDO::PARAM_STR);
-                $statement->bindParam(2, self::$id_collumn, PDO::PARAM_STR);
+                $statement->bindParam(2, self::$id_column, PDO::PARAM_STR);
                 $statement->bindParam(3, $id, PDO::PARAM_INT);
                 $statement->execute();
                 $results = $statement->fetch(PDO::FETCH_BOTH);
