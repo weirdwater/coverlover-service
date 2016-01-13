@@ -114,24 +114,36 @@ Deletes the resource permanently.
 https://api.example.com/songs/sharp_dressed_man
 
 {
-	"id": 20145,
-	"slug": "sharp_dressed_man",
-	"title": "Sharp Dressed Man",
-	"artist": "ZZ Top",
-	"examples": [
+	"song" : {
+		"id": "1",
+		"slug": "sharp_dressed_man",
+		"title": "Sharp Dressed Man",
+		"artist": "ZZ Top",
+		"notes": "In the style of the Nickelback (live) cover of this song. After the second chorus another solo and chorus.",
+		"key": "C",
+		"examples": [
+			{
+				"title": "Nickelback's versie",
+				"type": "youtube",
+				"url": "https://www.youtube.com/watch?v=Eh9Q6BGGU50"
+			},                    {
+				"title": "Originele versie van ZZ Top",
+				"type": "Google Play Music",
+				"url": "https://play.google.com/music/m/Tcpjys4ihvbkjuvyygae7kkkydi?t=Sharp_Dressed_Man_Live_-_ZZ_Top"
+			}
+		],
+		"added": "2016-01-13 16:23:21"
+	},
+	"links": [
 		{
-		 	"type": "youtube",
-		 	"url": "https://www.youtube.com/watch?v=Eh9Q6BGGU50"
+			"rel": "self",
+			"uri": "http://145.24.222.220/coverlover/songs/sharp_dressed_man"
+		},
+		{
+			"rel": "collection",
+			"uri": "http://145.24.222.220/coverlover/songs/"
 		}
-	],
-	"notes": "In the style of the Nickelback (live) cover of this song. After the second chorus another solo and chorus.",
-	"key": "C",
-	"date_added": "2014-09-20 21:48:42",
-	"links": {
-		"self": "https://api.example.com/songs/sharp_dressed_man",
-		"next": "https://api.example.com/songs/bohemian_like_you",
-		"collection": "https://api.example.com/songs"
-	}
+	]
 }
 ```
 
