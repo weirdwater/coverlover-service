@@ -70,7 +70,7 @@ class Router
 
     public function songDetailGet($id)
     {
-        $song = Song::fromId(1);
+        $song = Song::fromId($id);
         $song->printDetailedJSON();
     }
 
