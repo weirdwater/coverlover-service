@@ -35,7 +35,7 @@ class SongCollection
 
     public function printCollectionJSON()
     {
-        echo '"Songs": [';
+        echo '{"Songs": [';
         foreach ($this->songs as $key => $song) {
             $song->printShortJSON();
             if ($key < (count($this->songs) - 1)) {
