@@ -44,17 +44,23 @@ class SongCollection
         }
         echo ']';
         echo ',
-        "pagination": [],
-    "links": [
-        {
-            "rel": "index",
-            "uri": "<?= BASE_URL ?>"
-        },
-        {
-            "rel": "collection",
-            "uri": "<?= BASE_URL . \'songs/\' ?>"
-        }
-    ]';
+        "links": [
+            {
+                "rel": "index",
+                "uri": "<?= BASE_URL ?>"
+            },
+            {
+                "rel": "collection",
+                "uri": "<?= BASE_URL . \'songs/\' ?>"
+            }
+        ],
+        "pagination": {
+            "currentPage": 1,
+            "currentItems": 2,
+            "totalPages": 1,
+            "totalItems": 2,
+            "links": []
+        }';
     }
 
     /**
