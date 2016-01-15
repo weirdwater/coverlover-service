@@ -35,7 +35,7 @@ class SongCollection
 
     public function printCollectionJSON()
     {
-        echo '{"Songs": [';
+        echo '{"items": [';
         foreach ($this->songs as $key => $song) {
             $song->printShortJSON();
             if ($key < (count($this->songs) - 1)) {
@@ -43,6 +43,18 @@ class SongCollection
             }
         }
         echo ']';
+        echo ',
+        "pagination": [],
+    "links": [
+        {
+            "rel": "index",
+            "uri": "<?= BASE_URL ?>"
+        },
+        {
+            "rel": "collection",
+            "uri": "<?= BASE_URL . \'songs/\' ?>"
+        }
+    ]';
     }
 
     /**
