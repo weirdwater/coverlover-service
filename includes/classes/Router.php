@@ -59,28 +59,60 @@ class Router
 
     public function index()
     {
+        global $hades;
+        $hades->log('Index route followed.');
         require TEMPLATES . 'index.template.php';
         exit;
     }
 
     public function errorMessage($code, $message, $hint = null)
     {
+        global $hades;
+        $hades->log('Error message route invoked.');
         require TEMPLATES . 'error_message.template.php';
     }
 
     public function songDetailGet($id)
     {
+        global $hades;
+        $hades->log('Get Song detail('. $id .') route followed.');
         $song = Song::fromId($id);
         $song->printDetailedJSON();
     }
 
-    public function songDetailPost($id) {}
+    public function songDetailPost($id)
+    {
+        global $hades;
+        $hades->log('Post Song detail('. $id .') route followed.');
+    }
 
-    public function songDetailPut($id) {}
+    public function songDetailPut($id)
+    {
+        global $hades;
+        $hades->log('Put Song detail('. $id .') route followed.');
+    }
 
-    public function songDetailDelete($id) {}
+    public function songDetailDelete($id)
+    {
+        global $hades;
+        $hades->log('Delete Song detail('. $id .') route followed.');
+    }
 
-    public function songCollectionGet() {}
+    public function songCollectionGet()
+    {
+        global $hades;
+        $hades->log('Get Song collection route followed.');
+        $collection = new SongCollection();
+        $hades->log('Song Collection object created.');
+        $collection->retrieveSongs();
+        $hades->log('Songs Retrieved.');
+        $collection->printCollectionJSON();
+        $hades->log('Printed JSON.');
+    }
 
-    public function songCollectionPost() {}
+    public function songCollectionPost()
+    {
+        global $hades;
+        $hades->log('Post Song collection route followed.');
+    }
 }

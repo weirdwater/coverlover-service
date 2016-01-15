@@ -24,7 +24,7 @@
         "uri": "<?= BASE_URL . 'songs/' . $this->slug ?>"
     },
     {
-    "rel": "collection",
-    "uri": "<?= BASE_URL . 'songs/' ?>"
+        "rel": "collection",
+        "uri": "<?= BASE_URL . 'songs/' ?>"
     }
 ]

@@ -6,7 +6,8 @@ require 'includes/init.php';
 echo '{';
 $router = new Router();
 
-//$hades->printLog();
 
 ?>
 }
+
+<?php //$hades->printLog(); ?>

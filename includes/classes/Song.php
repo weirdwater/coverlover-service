@@ -96,6 +96,11 @@ class Song extends DatabaseResource
         require TEMPLATES . 'song_detailview.template.php';
     }
 
+    public function printShortJSON()
+    {
+        require TEMPLATES . 'song_collectionview.template.php';
+    }
+
 
     /**
      * @return mixed

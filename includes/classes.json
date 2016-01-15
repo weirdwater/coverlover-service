@@ -8,6 +8,10 @@
     "file": "Song.php"
   },
   {
+    "class": "SongCollection",
+    "file": "SongCollection.php"
+  },
+  {
     "class": "Example",
     "file": "Example.php"
   },
