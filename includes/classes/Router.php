@@ -80,6 +80,7 @@ class Router
     {
         global $hades;
         $hades->log('Error message route invoked.');
+        http_response_code($code);
         require TEMPLATES . 'error_message.template.php';
     }
 
