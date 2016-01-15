@@ -9,45 +9,52 @@
 
 class Router
 {
+    private $routes = [
+        'songs' => [
+            true  => [
+                'GET'     => 'songDetailGet',
+                'POST'    => 'songDetailPost',
+                'PUT'     => 'songDetailPut',
+                'DELETE'  => 'songDetailDelete'
+            ],
+            false => [
+                'GET'    => 'songCollectionGet',
+                'POST'   => 'songCollectionPost'
+            ],
+        ]
+    ];
 
     /**
      * Router constructor.
      */
     public function __construct()
     {
-        $id = null;
-
-        $routes = [
-            'songs' => [
-                true  => [
-                    'GET'    => 'songDetailGet',
-                    'POST'   => 'songDetailPost',
-                    'PUT'    => 'songDetailPut',
-                    'DELETE' => 'songDetailDelete'
-                ],
-                false => [
-                    'GET'    => 'songCollectionGet',
-                    'POST'   => 'songCollectionPost'
-                ],
-            ]
-        ];
 
         if (isset($_GET['resource'])) {
             $resource = $_GET['resource'];
             // Non-existent resource
-            if (!isset($routes[$resource]))
+            if (!isset($this->routes[$resource]))
                 $this->errorMessage(404, "Resource doesn't exist");
 
             // Simple Resource
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $action = $routes[$resource][true][$_SERVER['REQUEST_METHOD']];
-                $this->$action($id);
+
+                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
+                    $this->options($resource, true);
+                else {
+                    $action = $this->routes[$resource][true][$_SERVER['REQUEST_METHOD']];
+                    $this->$action($id);
+                }
             }
             // Collection Resource
             else {
-                $action = $routes[$resource][false][$_SERVER['REQUEST_METHOD']];
-                $this->$action();
+                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
+                    $this->options($resource, false);
+                else {
+                    $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
+                    $this->$action();
+                }
             }
         }
         // No resource specified
@@ -114,5 +121,12 @@ class Router
     {
         global $hades;
         $hades->log('Post Song collection route followed.');
+    }
+
+    public function options($resource, $is_simple)
+    {
+        $options = implode(',', array_keys($this->routes[$resource][$is_simple]));
+        header('Allow : ' . $options);
+        exit;
     }
 }

@@ -1,3 +1,4 @@
+{
     "error": {
         "code": "<?= $code ?>",
         "message": "<?= $message ?>"

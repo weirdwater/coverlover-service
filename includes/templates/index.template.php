@@ -1,3 +1,4 @@
+{
     "links": {
         "rel": "songs",
         "url": "<?= BASE_URL . 'songs' ?>"
