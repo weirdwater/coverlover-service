@@ -50,7 +50,7 @@ class SongCollection
                 "uri": "<?= BASE_URL ?>"
             },
             {
-                "rel": "collection",
+                "rel": "self",
                 "uri": "<?= BASE_URL . \'songs/\' ?>"
             }
         ],
