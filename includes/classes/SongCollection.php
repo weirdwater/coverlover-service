@@ -47,11 +47,11 @@ class SongCollection
         "links": [
             {
                 "rel": "index",
-                "uri": "<?= BASE_URL ?>"
+                "uri": "'. BASE_URL .'"
             },
             {
                 "rel": "self",
-                "uri": "<?= BASE_URL . \'songs/\' ?>"
+                "uri": "'. BASE_URL . 'songs/"
             }
         ],
         "pagination": {
