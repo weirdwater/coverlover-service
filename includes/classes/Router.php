@@ -31,6 +31,8 @@ class Router
      */
     public function __construct()
     {
+        if ($_SERVER['HTTP_ACCEPT'] !== 'application/json')
+            $this->errorMessage(406, 'Not Acceptable', 'The service currently only supports application/json.');
 
         if (isset($_GET['resource'])) {
             $resource = $_GET['resource'];
