@@ -15,11 +15,13 @@ class Router
                 'GET'     => 'songDetailGet',
                 'POST'    => 'songDetailPost',
                 'PUT'     => 'songDetailPut',
-                'DELETE'  => 'songDetailDelete'
+                'DELETE'  => 'songDetailDelete',
+                'OPTIONS' => true,
             ],
             false => [
-                'GET'    => 'songCollectionGet',
-                'POST'   => 'songCollectionPost'
+                'GET'     => 'songCollectionGet',
+                'POST'    => 'songCollectionPost',
+                'OPTIONS' => true
             ],
         ]
     ];
