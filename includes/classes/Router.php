@@ -26,20 +26,14 @@ class Router
         ]
     ];
 
-    /**
-     * Router constructor.
-     */
-    public function __construct()
+    public function route($response)
     {
         if ($_SERVER['HTTP_ACCEPT'] !== 'application/json')
-            $this->errorMessage(406, 'Not Acceptable', 'The service currently only supports application/json.');
+            return $this->errorMessage($response, 406, 'Not Acceptable', 'The service currently only supports application/json.');
         else {
             header('Content-Type : application/json');
         }
-    }
 
-    public function route($response)
-    {
         if (isset($_GET['resource'])) {
             $resource = $_GET['resource'];
             // Non-existent resource
@@ -107,6 +101,10 @@ class Router
 
     public function songCollectionGet($response)
     {
+        $response = new CollectionResponseObject();
+        $songs = new SongCollection();
+        $songs->retrieveSongs();
+        $response->setItems($songs->getResponseItems());
         return $response;
     }
 

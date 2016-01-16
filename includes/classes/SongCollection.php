@@ -33,34 +33,13 @@ class SongCollection
         }
     }
 
-    public function printCollectionJSON()
+    public function getResponseItems()
     {
-        echo '{"items": [';
-        foreach ($this->songs as $key => $song) {
-            $song->printShortJSON();
-            if ($key < (count($this->songs) - 1)) {
-                echo ',';
-            }
+        $items = [];
+        foreach ($this->songs as $song) {
+            array_push($items, $song->getResponseItem());
         }
-        echo ']';
-        echo ',
-        "links": [
-            {
-                "rel": "index",
-                "uri": "'. BASE_URL .'"
-            },
-            {
-                "rel": "self",
-                "uri": "'. BASE_URL . 'songs/"
-            }
-        ],
-        "pagination": {
-            "currentPage": 1,
-            "currentItems": 2,
-            "totalPages": 1,
-            "totalItems": 2,
-            "links": []
-        }';
+        return $items;
     }
 
     /**
