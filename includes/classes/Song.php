@@ -121,6 +121,7 @@ class Song extends DatabaseResource
         $song->slug = $this->slug;
         $song->title = $this->title;
         $song->artist = $this->artist;
+        $song->added = $this->added;
         if ($detailed) {
             $song->notes = $this->notes;
             $song->key = $this->key;
@@ -132,16 +133,9 @@ class Song extends DatabaseResource
                 ResponseObject::generateLink('collection', BASE_URL . 'songs')
             ];
         }
-        $song->added = $this->added;
 
         return $song;
     }
-
-    public function printShortJSON()
-    {
-        require TEMPLATES . 'song_collectionview.template.php';
-    }
-
 
     /**
      * @return mixed
