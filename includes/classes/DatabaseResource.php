@@ -26,7 +26,14 @@ class DatabaseResource
                 $statement->execute();
                 $results = $statement->fetch(PDO::FETCH_ASSOC);
 
-                return $results;
+                if ($results === false) {
+                    $response = new ErrorResponseObject(404, 'Not found', 'Resource doens\'t exist.');
+                    $response->printJSON();
+                    exit;
+                }
+                else {
+                    return $results;
+                }
             }
             catch (Exception $e) {
                 $hades->databaseError($e);

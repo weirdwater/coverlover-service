@@ -68,6 +68,29 @@ class Song extends DatabaseResource
         return self::fillValues($results);
     }
 
+    public static function fromSlug($slug)
+    {
+        global $db, $hades;
+
+
+        try {
+            $statement = $db->prepare('
+                SELECT *
+                FROM `songs`
+                WHERE `slug` = ?
+            ');
+            $statement->bindParam(1, $slug, PDO::PARAM_STR);
+            $statement->execute();
+            $results = $statement->fetch(PDO::FETCH_ASSOC);
+
+            return self::fillValues($results);
+        }
+        catch (Exception $e) {
+            $hades->databaseError($e);
+        }
+
+    }
+
     public static function fetchExamples($songId)
     {
         global $db, $hades;
@@ -91,9 +114,27 @@ class Song extends DatabaseResource
         }
     }
 
-    public function printDetailedJSON()
+    public function getResponseItem($detailed = false)
     {
-        require TEMPLATES . 'song_detailview.template.php';
+        $song = new stdClass();
+        $song->id = $this->id;
+        $song->slug = $this->slug;
+        $song->title = $this->title;
+        $song->artist = $this->artist;
+        if ($detailed) {
+            $song->notes = $this->notes;
+            $song->key = $this->key;
+            $song->examples = $this->examples;
+        }
+        else {
+            $song->links = [
+                ResponseObject::generateLink('self', BASE_URL . 'songs/' . $this->slug),
+                ResponseObject::generateLink('collection', BASE_URL . 'songs')
+            ];
+        }
+        $song->added = $this->added;
+
+        return $song;
     }
 
 

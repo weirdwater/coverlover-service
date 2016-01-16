@@ -9,78 +9,96 @@
 
 class Router
 {
-
-    /**
-     * Router constructor.
-     */
-    public function __construct()
-    {
-        $id = null;
-
-        $routes = [
-            'songs' => [
-                true  => [
-                    'GET'    => 'songDetailGet',
-                    'POST'   => 'songDetailPost',
-                    'PUT'    => 'songDetailPut',
-                    'DELETE' => 'songDetailDelete'
-                ],
-                false => [
-                    'GET'    => 'songCollectionGet',
-                    'POST'   => 'songCollectionPost'
-                ],
+    private $routes = [
+        'songs' => [
+            true  => [
+                'GET'    => 'songDetailGet',
+                'POST'   => 'songDetailPost',
+                'PUT'    => 'songDetailPut',
+                'DELETE' => 'songDetailDelete'
+            ],
+            false => [
+                'GET'    => 'songCollectionGet',
+                'POST'   => 'songCollectionPost'
             ]
-        ];
+        ]
+    ];
 
+
+    public function route($response)
+    {
         if (isset($_GET['resource'])) {
             $resource = $_GET['resource'];
             // Non-existent resource
-            if (!isset($routes[$resource]))
-                $this->errorMessage(404, "Resource doesn't exist");
+            if (!isset($this->routes[$resource]))
+                return $this->errorMessage($response, 404, "Resource doesn't exist");
 
             // Simple Resource
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
-                $action = $routes[$resource][true][$_SERVER['REQUEST_METHOD']];
-                $this->$action($id);
+                $action = $this->routes[$resource][true][$_SERVER['REQUEST_METHOD']];
+                return $this->$action($response, $id);
             }
             // Collection Resource
             else {
-                $action = $routes[$resource][false][$_SERVER['REQUEST_METHOD']];
-                $this->$action();
+                $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
+                return $this->$action($response);
             }
         }
         // No resource specified
         else {
-            $this->index();
+            return $this->index($response);
         }
-
     }
 
-    public function index()
+    public function index(ResponseObject $response)
     {
-        require TEMPLATES . 'index.template.php';
-        exit;
+        foreach ($this->routes as $resource => $simple)
+            $response->addLink($resource, BASE_URL . $resource);
+        return $response;
     }
 
-    public function errorMessage($code, $message, $hint = null)
+    public function errorMessage($response, $code, $message, $hint = null)
     {
-        require TEMPLATES . 'error_message.template.php';
+        $response = new ErrorResponseObject($code, $message, $hint);
+        return $response;
     }
 
-    public function songDetailGet($id)
+    public function songDetailGet($response, $id)
     {
-        $song = Song::fromId(1);
-        $song->printDetailedJSON();
+        if(is_numeric($id))
+            $song = Song::fromId($id);
+        else
+            $song = Song::fromSlug($id);
+        $response = new SimpleResponseObject();
+        $response->setItem($song->getResponseItem(true));
+        $response->addLink('collection', BASE_URL . 'songs');
+        $response->addLink('self', BASE_URL . 'songs/' . $song->getSlug());
+        return $response;
     }
 
-    public function songDetailPost($id) {}
+    public function songDetailPost($response, $id)
+    {
+        return $response;
+    }
 
-    public function songDetailPut($id) {}
+    public function songDetailPut($response, $id)
+    {
+        return $response;
+    }
 
-    public function songDetailDelete($id) {}
+    public function songDetailDelete($response, $id)
+    {
+        return $response;
+    }
 
-    public function songCollectionGet() {}
+    public function songCollectionGet($response)
+    {
+        return $response;
+    }
 
-    public function songCollectionPost() {}
+    public function songCollectionPost($response)
+    {
+        return $response;
+    }
 }

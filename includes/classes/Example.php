@@ -11,7 +11,7 @@ class Example extends DatabaseResource
     public static $table = "examples";
     public static $id_column = "exampleId";
 
-    private $id,
+    public $id,
             $title,
             $type,
             $url;

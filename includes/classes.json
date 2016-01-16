@@ -14,5 +14,21 @@
   {
     "class": "Router",
     "file": "Router.php"
+  },
+  {
+    "class": "ResponseObject",
+    "file": "ResponseObject.php"
+  },
+  {
+    "class": "ErrorResponseObject",
+    "file": "ErrorResponseObject.php"
+  },
+  {
+    "class": "SimpleResponseObject",
+    "file": "SimpleResponseObject.php"
+  },
+  {
+    "class": "CollectionResponseObject",
+    "file": "CollectionResponseObject.php"
   }
 ]

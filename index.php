@@ -3,10 +3,10 @@ require 'includes/classes/Messenger.php';
 $hades = new Messenger();
 require 'includes/init.php';
 
-echo '{';
+$response = new ResponseObject();
 $router = new Router();
-
+$response = $router->route($response);
+$response->printJSON();
 //$hades->printLog();
 
 ?>
-}
