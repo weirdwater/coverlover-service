@@ -43,11 +43,18 @@ class Router
             // Simple Resource
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
+
+                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
+                    $this->options($resource, true);
+
                 $action = $this->routes[$resource][true][$_SERVER['REQUEST_METHOD']];
                 return $this->$action($response, $id);
             }
             // Collection Resource
             else {
+                if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
+                    $this->options($resource, false);
+
                 $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
                 return $this->$action($response);
             }
@@ -111,5 +118,12 @@ class Router
     public function songCollectionPost($response)
     {
         return $response;
+    }
+
+    public function options($resource, $is_simple)
+    {
+        $options = implode(',', array_keys($this->routes[$resource][$is_simple]));
+        header('Allow : ' . $options);
+        exit;
     }
 }
