@@ -137,6 +137,11 @@ class Song extends DatabaseResource
         return $song;
     }
 
+    public function printShortJSON()
+    {
+        require TEMPLATES . 'song_collectionview.template.php';
+    }
+
 
     /**
      * @return mixed

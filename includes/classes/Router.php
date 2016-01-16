@@ -12,18 +12,31 @@ class Router
     private $routes = [
         'songs' => [
             true  => [
-                'GET'    => 'songDetailGet',
-                'POST'   => 'songDetailPost',
-                'PUT'    => 'songDetailPut',
-                'DELETE' => 'songDetailDelete'
+                'GET'     => 'songDetailGet',
+                'POST'    => 'songDetailPost',
+                'PUT'     => 'songDetailPut',
+                'DELETE'  => 'songDetailDelete',
+                'OPTIONS' => true,
             ],
             false => [
-                'GET'    => 'songCollectionGet',
-                'POST'   => 'songCollectionPost'
-            ]
+                'GET'     => 'songCollectionGet',
+                'POST'    => 'songCollectionPost',
+                'OPTIONS' => true
+            ],
         ]
     ];
 
+    /**
+     * Router constructor.
+     */
+    public function __construct()
+    {
+        if ($_SERVER['HTTP_ACCEPT'] !== 'application/json')
+            $this->errorMessage(406, 'Not Acceptable', 'The service currently only supports application/json.');
+        else {
+            header('Content-Type : application/json');
+        }
+    }
 
     public function route($response)
     {
