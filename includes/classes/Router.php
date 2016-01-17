@@ -114,7 +114,7 @@ class Router
         $response = new CollectionResponseObject();
 
         $limit = filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT);
-        $pages = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
+        $pages = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_NUMBER_INT);
 
         $songs = new SongCollection($limit, $pages);
         $songs->retrieveSongs();

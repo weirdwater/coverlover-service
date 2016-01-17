@@ -83,7 +83,7 @@ class SongCollection
             $totalpages = 1;
         else
             $totalpages = ceil($this->totalItems / $this->itemsPerPage);
-        $query = 'songs?limit='. $this->itemsPerPage .'&page=';
+        $query = 'songs?limit='. $this->itemsPerPage .'&start=';
 
         // First
         array_push($links, ResponseObject::generateLink(
