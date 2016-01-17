@@ -21,7 +21,6 @@ class Router
             false => [
                 'GET'     => 'songCollectionGet',
                 'POST'    => 'songCollectionPost',
-                'DELETE'  => 'songCollectionGet',
                 'OPTIONS' => true
             ],
         ]
@@ -55,8 +54,10 @@ class Router
             else {
                 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
                     $this->options($resource, false);
-
-                $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
+                if(!isset($this->routes[$resource][false][$_SERVER['REQUEST_METHOD']]))
+                    $action = $this->routes[$resource][false]['GET'];
+                else
+                    $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
                 return $this->$action($response);
             }
         }
