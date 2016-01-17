@@ -8,22 +8,15 @@
  */
 class SimpleResponseObject extends ResponseObject
 {
-    public $item;
-
-    /**
-     * @return mixed
-     */
-    public function getItem()
-    {
-        return $this->item;
-    }
 
     /**
      * @param mixed $item
      */
     public function setItem($item)
     {
-        $this->item = $item;
+        foreach ($item as $prop => $val) {
+            $this->$prop = $val;
+        }
     }
 
 }
