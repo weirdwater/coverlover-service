@@ -54,8 +54,9 @@ class Router
             else {
                 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS')
                     $this->options($resource, false);
-                if(!isset($this->routes[$resource][false][$_SERVER['REQUEST_METHOD']]))
-                    $action = $this->routes[$resource][false]['GET'];
+                if(!isset($this->routes[$resource][false][$_SERVER['REQUEST_METHOD']])) {
+                    return $this->errorMessage($response, 405, 'Method Not Allowed');
+                }
                 else
                     $action = $this->routes[$resource][false][$_SERVER['REQUEST_METHOD']];
                 return $this->$action($response);
