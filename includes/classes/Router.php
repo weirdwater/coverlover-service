@@ -117,6 +117,7 @@ class Router
         $songs->retrieveSongs();
         $response->setItems($songs->getResponseItems());
         $response->setPagination($songs->getPagination());
+        $response->addLink('self', BASE_URL . 'songs');
         return $response;
     }
 
