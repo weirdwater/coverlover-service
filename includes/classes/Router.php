@@ -21,6 +21,7 @@ class Router
             false => [
                 'GET'     => 'songCollectionGet',
                 'POST'    => 'songCollectionPost',
+                'DELETE'  => 'songCollectionGet',
                 'OPTIONS' => true
             ],
         ]
