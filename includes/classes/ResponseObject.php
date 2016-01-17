@@ -49,7 +49,7 @@ class ResponseObject
     {
         $link = new stdClass();
         $link->rel = $rel;
-        $link->url = $url;
+        $link->href = $url;
         return $link;
     }
 
