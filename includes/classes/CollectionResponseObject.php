@@ -11,6 +11,24 @@ class CollectionResponseObject extends ResponseObject
     public $items,
            $pagination;
 
+
+
+    /**
+     * @return mixed
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
+
+    /**
+     * @param mixed $pagination
+     */
+    public function setPagination($pagination)
+    {
+        $this->pagination = $pagination;
+    }
+
     /**
      * @return mixed
      */
