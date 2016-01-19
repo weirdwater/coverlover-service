@@ -6,7 +6,10 @@ require 'includes/init.php';
 $response = new ResponseObject();
 $router = new Router();
 $response = $router->route($response);
-$response->printJSON();
+
+$view = new View($response);
+$view->generateView();
+
 //$hades->printLog();
 
 ?>

@@ -8,7 +8,7 @@
  */
 class ResponseObject
 {
-    private $statusCode;
+    private $statusCode, $rootElementName;
 
     public $links = [];
 
@@ -20,24 +20,6 @@ class ResponseObject
     {
         $this->statusCode = $statusCode;
         $this->addLink('index', BASE_URL);
-    }
-
-
-    public function printJSON()
-    {
-        http_response_code($this->statusCode);
-        header('Content-Type : application/json');
-        echo json_encode($this);
-    }
-
-    public function printXML()
-    {
-        http_response_code($this->statusCode);
-        header('Content-Type : application/xml');
-        // TODO: print XML
-        echo "Should be printing XML <br /><pre>";
-        var_dump($this);
-        echo '<pre>';
     }
 
     public function addLink($rel, $url)
@@ -84,6 +66,23 @@ class ResponseObject
     {
         $this->links = $links;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRootElementName()
+    {
+        return $this->rootElementName;
+    }
+
+    /**
+     * @param mixed $rootElementName
+     */
+    public function setRootElementName($rootElementName)
+    {
+        $this->rootElementName = $rootElementName;
+    }
+
 
 
 }

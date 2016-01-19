@@ -18,6 +18,7 @@ class ErrorResponseObject extends ResponseObject
     {
         parent::__construct();
         $this->setStatusCode($code);
+        $this->setRootElementName('Error');
         $this->error = new stdClass();
         $this->error->code    = $code;
         $this->error->message = $message;

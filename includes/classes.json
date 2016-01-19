@@ -34,5 +34,9 @@
   {
     "class": "CollectionResponseObject",
     "file": "CollectionResponseObject.php"
+  },
+  {
+    "class": "View",
+    "file": "View.php"
   }
 ]

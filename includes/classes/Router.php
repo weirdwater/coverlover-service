@@ -28,11 +28,8 @@ class Router
 
     public function route($response)
     {
-        if ($_SERVER['HTTP_ACCEPT'] !== 'application/json')
-            return $this->errorMessage($response, 406, 'Not Acceptable', 'The service currently only supports application/json.');
-        else {
-            header('Content-Type : application/json');
-        }
+        if ($_SERVER['HTTP_ACCEPT'] !== 'application/json' && $_SERVER['HTTP_ACCEPT'] !== 'application/xml')
+            return $this->errorMessage($response, 406, 'Not Acceptable', 'The service currently only supports application/json and application/xml.');
 
         if (isset($_GET['resource'])) {
             $resource = $_GET['resource'];
@@ -70,8 +67,10 @@ class Router
 
     public function index(ResponseObject $response)
     {
-        foreach ($this->routes as $resource => $simple)
+        foreach ($this->routes as $resource => $simple) {
             $response->addLink($resource, BASE_URL . $resource);
+            $response->setRootElementName('Index');
+        }
         return $response;
     }
 
@@ -91,6 +90,7 @@ class Router
         $response->setItem($song->getResponseItem(true));
         $response->addLink('collection', BASE_URL . 'songs');
         $response->addLink('self', BASE_URL . 'songs/' . $song->getSlug());
+        $response->setRootElementName('Song');
         return $response;
     }
 
@@ -121,6 +121,7 @@ class Router
         $response->setItems($songs->getResponseItems());
         $response->setPagination($songs->getPagination());
         $response->addLink('self', BASE_URL . 'songs');
+        $response->setRootElementName('Songs');
         return $response;
     }
 
