@@ -20,8 +20,18 @@ class View
 
     public function objectToXML($object, $name)
     {
-        $xml = new SimpleXMLElement('<?xml version="1.0" ?><'.$name.'></'.$name.'>');
-        $this->objectToXmlChild($xml, $object);
+        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><'.$name.'></'.$name.'>');
+
+        foreach ($object as $key => $value) {
+            if (gettype($value) === 'object' || gettype($value) === 'array') {
+                $newChild = $xml->addChild($key);
+                $this->objectToXmlChild($newChild, $value);
+            }
+            elseif (gettype($value) === 'array') {
+                $newChild = $xml->addChild($key);
+                $this->arrayToXmlChild($newChild, $value, $key);
+            }
+        }
 
         return $xml->asXML();
     }
@@ -71,7 +81,42 @@ class View
     public function printXML()
     {
         header('Content-Type : application/xml');
-        echo $this->objectToXML($this, $this->responseObject->getRootElementName());
+
+//        var_dump(get_object_vars($this->responseObject));
+//        exit;
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><singles></singles>');
+        $this->array_to_xml($this->objectToArray($this->responseObject), $xml);
+        echo $xml -> asXML();
+    }
+
+    public function array_to_xml($array, &$xml, $parentKey = '') {
+        foreach($array as $key => $value) {
+            if(is_object($value)) {
+                $key = $this->pluralToSimple($parentKey);
+                $value = get_object_vars($value);
+            }
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml->addChild("$key");
+                    $this->array_to_xml($value, $subnode, $key);
+                } else {
+                    $this->array_to_xml($value, $xml, $key);
+                }
+            } else {
+                $xml->addChild("$key","$value");
+            }
+        }
+    }
+
+    public function objectToArray($object)
+    {
+        $array = get_object_vars($object);
+        foreach ($array as $key => $value) {
+            if (is_object($value)) {
+                $array[$key] = get_object_vars($value);
+            }
+        }
+        return $array;
     }
 
     public function generateView()
