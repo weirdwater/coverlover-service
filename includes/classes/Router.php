@@ -127,6 +127,28 @@ class Router
 
     public function songCollectionPost($response)
     {
+        switch ($_SERVER['CONTENT_TYPE']) {
+            case 'application/x-www-form-urlencoded':
+                $artist = filter_input(INPUT_POST, 'artist', FILTER_SANITIZE_STRING);
+                $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+                $key = filter_input(INPUT_POST, 'key', FILTER_SANITIZE_STRING);
+                $notes = filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_STRING);
+                $examples = [];
+                break;
+            case 'application/json':
+                // TODO: Accept json post
+                break;
+            case 'application/xml':
+                // TODO: Accept xml post
+                break;
+            default:
+                $response = $this->errorMessage($response, 406, 'Not Acceptable', 'Content-type is unacceptable');
+                return $response;
+        }
+
+        $song = Song::createNewRecord($artist, $title, $key, $notes, $examples);
+        $response = new SimpleResponseObject(201);
+        $response->setItem($song->getResponseItem(true));
         return $response;
     }
 
