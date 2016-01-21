@@ -136,7 +136,14 @@ class Router
                 $examples = [];
                 break;
             case 'application/json':
-                // TODO: Accept json post
+                $raw_JSON = file_get_contents('php://input');
+                $input = json_decode($raw_JSON);
+                $artist = $input->artist;
+                $title = $input->title;
+                $key = $input->key;
+                $notes = $input->notes;
+                $examples = $input->examples;
+
                 break;
             case 'application/xml':
                 // TODO: Accept xml post
@@ -163,7 +170,17 @@ class Router
             return $response;
         }
 
-        $song = Song::createNewRecord($artist, $title, $key, $notes, $examples);
+        $exampleObjs = [];
+        foreach ($examples as $example) {
+            array_push($exampleObjs, new Example(
+                null,
+                $example->title,
+                $example->type,
+                $example->url
+            ));
+        }
+
+        $song = Song::createNewRecord($artist, $title, $key, $notes, $exampleObjs);
         $response = new SimpleResponseObject(201);
         $response->setItem($song->getResponseItem(true));
         return $response;
