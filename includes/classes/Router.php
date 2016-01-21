@@ -142,8 +142,25 @@ class Router
                 // TODO: Accept xml post
                 break;
             default:
-                $response = $this->errorMessage($response, 406, 'Not Acceptable', 'Content-type is unacceptable');
+                $response = $this->errorMessage($response, 415, 'Unsupported Content Type');
                 return $response;
+        }
+
+        $fields = [
+            'artist' => 0,
+            'title'  => 0,
+            'key'    => 0,
+            'notes'  => 0
+        ];
+
+        foreach ($fields as $name => $empty) {
+            if (!empty($$name)) {
+                $fields[$name] = 1;
+            }
+        }
+        if (array_sum($fields) === 0) {
+            $response = new ErrorResponseObject(400, 'Bad Request', 'All fields are empty');
+            return $response;
         }
 
         $song = Song::createNewRecord($artist, $title, $key, $notes, $examples);
