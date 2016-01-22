@@ -183,6 +183,8 @@ class Router
         $song = Song::createNewRecord($artist, $title, $key, $notes, $exampleObjs);
         $response = new SimpleResponseObject(201);
         $response->setItem($song->getResponseItem(true));
+        $response->addLink('collection', BASE_URL . 'songs');
+        $response->addLink('self', BASE_URL . 'songs/' . $song->getSlug());
         return $response;
     }
 
