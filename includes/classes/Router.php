@@ -13,7 +13,6 @@ class Router
         'songs' => [
             true  => [
                 'GET'     => 'songDetailGet',
-                'POST'    => 'songDetailPost',
                 'PUT'     => 'songDetailPut',
                 'DELETE'  => 'songDetailDelete',
                 'OPTIONS' => true,
