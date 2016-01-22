@@ -100,6 +100,59 @@ class Router
 
     public function songDetailPut($response, $id)
     {
+        if(is_numeric($id))
+            $song = Song::fromId($id);
+        else
+            $song = Song::fromSlug($id);
+
+        switch ($_SERVER['CONTENT_TYPE']) {
+            case 'application/json':
+                $raw_JSON = file_get_contents('php://input');
+                $input = json_decode($raw_JSON);
+                $artist = $input->artist;
+                $title = $input->title;
+                $key = $input->key;
+                $notes = $input->notes;
+
+                break;
+            case 'application/xml':
+                // TODO: Accept xml post
+                break;
+            default:
+                $response = $this->errorMessage($response, 415, 'Unsupported Content Type');
+                return $response;
+        }
+
+        $fields = [
+            'artist' => 0,
+            'title'  => 0,
+            'key'    => 0,
+            'notes'  => 0
+        ];
+
+        foreach ($fields as $name => $empty) {
+            if (!empty($$name)) {
+                $fields[$name] = 1;
+            }
+        }
+        if (array_sum($fields) === 0 || array_sum($fields) < count($fields)) {
+            $response = new ErrorResponseObject(400, 'Bad Request', 'One or more fields are empty.');
+            return $response;
+        }
+
+        if ($fields['artist'] === 1)
+            $song->setArtist($artist);
+        if ($fields['title'] === 1)
+            $song->setTitle($title);
+        if ($fields['key'] === 1)
+            $song->setKey($key);
+        if ($fields['notes'] === 1)
+            $song->setNotes($notes);
+
+        $song->saveChanges();
+
+        $response = new SimpleResponseObject();
+        $response->setItem($song->getResponseItem(true));
         return $response;
     }
 

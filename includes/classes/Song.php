@@ -190,6 +190,33 @@ class Song extends DatabaseResource
         }
     }
 
+    public function saveChanges()
+    {
+        global $db, $hades;
+
+        try {
+            $statement = $db->prepare('
+                UPDATE songs
+                SET title = ?, artist = ?, notes = ?, `key` = ?, added = ?, slug = ?
+                WHERE songId = ?
+            ');
+            $statement->bindParam(1, $this->title, PDO::PARAM_STR);
+            $statement->bindParam(2, $this->artist, PDO::PARAM_STR);
+            $statement->bindParam(3, $this->notes, PDO::PARAM_STR);
+            $statement->bindParam(4, $this->key, PDO::PARAM_STR);
+            $statement->bindParam(5, $this->added, PDO::PARAM_STR);
+            $statement->bindParam(6, $this->slug, PDO::PARAM_STR);
+            $statement->bindParam(7, $this->id, PDO::PARAM_INT);
+
+            $statement->execute();
+
+            // TODO: Save changes to examples too.
+        }
+        catch (Exception $e) {
+            $hades->databaseError($e);
+        }
+    }
+
     public static function generateSlug($title, $artist)
     {
         $slug = self::replace_spec_char($title);
