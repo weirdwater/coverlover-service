@@ -145,7 +145,7 @@ class Song extends DatabaseResource
 
         try {
             $statement = $db->prepare('
-                INSERT INTO Songs (title, artist, `key`, notes, slug)
+                INSERT INTO songs (title, artist, `key`, notes, slug)
                 VALUES (?, ?, ?, ?, ?)
             ');
             $statement->bindParam(1, $title, PDO::PARAM_STR);
