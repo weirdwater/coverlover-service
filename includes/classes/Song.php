@@ -83,6 +83,11 @@ class Song extends DatabaseResource
             $statement->execute();
             $results = $statement->fetch(PDO::FETCH_ASSOC);
 
+            if ($statement->rowCount() === 0) {
+                http_response_code(404);
+                exit;
+            }
+
             return self::fillValues($results);
         }
         catch (Exception $e) {
