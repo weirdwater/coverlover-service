@@ -27,9 +27,7 @@ class DatabaseResource
                 $results = $statement->fetch(PDO::FETCH_ASSOC);
 
                 if ($statement->rowCount() === 0) {
-                    $response = new ErrorResponseObject(404, 'Not found', 'Resource doens\'t exist.');
-                    $view = new View($response);
-                    $view->generateView();
+                    http_response_code(404);
                     exit;
                 }
                 else {
