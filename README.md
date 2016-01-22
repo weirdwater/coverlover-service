@@ -2,6 +2,8 @@
 
 **NATSCHOOL REF CODE:** 2369346
 
+Github repo: [https://github.com/weirdwater/coverlover-service]()
+
 CoverLover is a setlist manager designed specifically for coverbands. Currently it will only store one band's repetoire.
 
 Accepted content-types: `JSON`, `x-www-form-urlencoded`, and `XML`. This has to be included in the header. If no content-type specified, the service will return JSON.
