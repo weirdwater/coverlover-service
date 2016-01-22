@@ -158,7 +158,19 @@ class Router
 
     public function songDetailDelete($response, $id)
     {
-        return $response;
+        if(is_numeric($id))
+            $song = Song::fromId($id);
+        else
+            $song = Song::fromSlug($id);
+
+        if ($song->deleteRecord()) {
+            http_response_code(204);
+            exit;
+        }
+        else {
+            http_response_code(500);
+            exit;
+        }
     }
 
     public function songCollectionGet($response)

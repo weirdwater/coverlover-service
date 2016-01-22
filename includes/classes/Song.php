@@ -217,6 +217,44 @@ class Song extends DatabaseResource
         }
     }
 
+    public function deleteRecord()
+    {
+        global $db, $hades;
+
+        try {
+            $statement = $db->prepare('
+                DELETE FROM songs
+                WHERE songs.songId = ?
+            ');
+            $statement->bindParam(1, $this->id, PDO::PARAM_INT);
+            $statement->execute();
+
+            $statement = $db->prepare('
+                DELETE FROM examples
+                WHERE examples.songId = ?
+            ');
+            $statement->bindParam(1, $this->id, PDO::PARAM_INT);
+            $statement->execute();
+
+            $statement = $db->prepare('
+                SELECT *
+                FROM songs
+                WHERE songId = ?
+            ');
+            $statement->bindParam(1, $this->id, PDO::PARAM_INT);
+            $statement->execute();
+            $rows = $statement->rowCount();
+
+            if ($rows === 0)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception $e) {
+            $hades->databaseError($e);
+        }
+    }
+
     public static function generateSlug($title, $artist)
     {
         $slug = self::replace_spec_char($title);
