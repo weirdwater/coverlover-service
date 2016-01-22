@@ -84,7 +84,7 @@ class View
 
 //        var_dump(get_object_vars($this->responseObject));
 //        exit;
-        $xml = new SimpleXMLElement('<?xml version="1.0"?><singles></singles>');
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><songs></songs>');
         $this->array_to_xml($this->objectToArray($this->responseObject), $xml);
         echo $xml -> asXML();
     }
